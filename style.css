@@ -1,0 +1,496 @@
+/* AI generated btw, I don't like writing CSS */
+
+
+/* --------------------------------------------------------------------------
+   Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+    --bg: #0a0a0a;
+    --bg-elevated: #141414;
+    --bg-card: #111111;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --text-muted: #9a9a9a;
+    --accent: #6eb5ff;
+    --accent-soft: rgba(110, 181, 255, 0.15);
+    --quote-border: #3d3d3d;
+    --carousel-height: 300px;
+    --font-body: system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", monospace;
+    --content-max: 42rem;
+    --page-padding: 1.25rem;
+    --section-gap: 1.5rem;
+    --radius: 10px;
+    --carousel-duration: 45s;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--accent);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--bg-elevated);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+}
+
+/* Skip link (accessibility) */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: #000;
+}
+
+.skip-link:focus {
+    left: var(--page-padding);
+    top: var(--page-padding);
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.site-header {
+    text-align: center;
+    padding: 1.75rem var(--page-padding) 0.5rem;
+}
+
+.site-title {
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.site-tagline {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   Photo carousel
+   -------------------------------------------------------------------------- */
+.carousel-section {
+    padding: 1.25rem 0 0.5rem;
+    text-align: center;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: min(100%, 56rem);
+    margin: 0 auto;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #000 8%,
+        #000 92%,
+        transparent 100%
+    );
+}
+
+.carousel-track {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    width: max-content;
+    padding: 0 1rem;
+    animation: marquee-scroll var(--carousel-duration) linear infinite;
+    will-change: transform;
+}
+
+.carousel.paused .carousel-track {
+    animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Each slide keeps a fixed height; width follows aspect ratio (no stretch) */
+.carousel-slide {
+    flex: 0 0 auto;
+    height: var(--carousel-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide img {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+}
+
+.carousel-hint {
+    margin: 0.65rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.carousel.paused + .carousel-hint,
+.carousel-section:has(.carousel.paused) .carousel-hint {
+    color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Main content
+   -------------------------------------------------------------------------- */
+.main-content {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: var(--section-gap) var(--page-padding) 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.35rem 1.5rem;
+}
+
+.section-heading {
+    margin: 0 0 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.card p {
+    margin: 0 0 0.85rem;
+}
+
+.card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Quote */
+.quote {
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.quote-text {
+    margin: 0;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.quote-author {
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-style: normal;
+}
+
+/* Timeline (education) */
+.timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    margin-bottom: 1.25rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-date {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-title {
+    margin: 0 0 0.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.timeline-detail {
+    margin: 0 0 0.35rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.timeline-note {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Progress list */
+.progress-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.progress-list li {
+    display: grid;
+    grid-template-columns: minmax(7rem, 9rem) 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.progress-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.progress-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.progress-value {
+    font-size: 0.95rem;
+}
+
+/* Social / links */
+.social-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.social-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.85rem;
+    row-gap: 0.1rem;
+    align-items: center;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.social-link:hover {
+    text-decoration: none;
+    background: var(--bg-elevated);
+    border-color: var(--accent);
+}
+
+.icon-slot {
+    grid-row: 1 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    border: 1px dashed var(--border);
+    position: relative;
+    overflow: hidden;
+}
+
+.icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: none;
+}
+
+.icon-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: -0.02em;
+}
+
+.icon-slot.icon-loaded .icon-img {
+    display: block;
+}
+
+.icon-slot.icon-loaded .icon-fallback {
+    display: none;
+}
+
+.social-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.social-url {
+    grid-column: 2;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    word-break: break-all;
+}
+
+.links-note {
+    margin: 1rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 1.5rem var(--page-padding) 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+        animation: none;
+    }
+
+    .carousel-hint::after {
+        content: " (animation off — system preference)";
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile / compact layouts
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+    :root {
+        --carousel-height: 220px;
+        --carousel-duration: 55s;
+        --page-padding: 1rem;
+        --section-gap: 1.15rem;
+    }
+
+    .site-header {
+        padding-top: 1.25rem;
+    }
+
+    .carousel {
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 4%,
+            #000 96%,
+            transparent 100%
+        );
+    }
+
+    .carousel-track {
+        gap: 1.1rem;
+    }
+
+    .card {
+        padding: 1.1rem 1.15rem;
+    }
+
+    .quote {
+        padding: 1rem 1.15rem;
+    }
+
+    .quote-text {
+        font-size: 1rem;
+    }
+
+    .progress-list li {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+    }
+
+    .progress-label {
+        font-size: 0.8rem;
+    }
+
+    .social-link {
+        padding: 0.65rem 0.75rem;
+    }
+
+    .icon-slot {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+}
+
+@media (max-width: 380px) {
+    :root {
+        --carousel-height: 190px;
+    }
+
+    .site-tagline {
+        font-size: 0.85rem;
+    }
+}
